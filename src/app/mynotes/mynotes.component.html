@@ -49,10 +49,9 @@
   </button>
         </form>
     </div>
-  <div *ngFor="let set of sets">
-    <div class="my-3 p-3 bg-white rounded shadow-sm">
+    <!-- <div class="my-3 p-3 bg-white rounded shadow-sm">
       <div class="border-bottom border-gray pb-2 mb-0">
-        <p class="font-weight-bolder float-left">{{set.setname}}</p><p class="d-block text-right">
+        <p class="font-weight-bolder float-left">All note</p><p class="d-block text-right">
         <a href="addnew.html">Add new note</a>
       </p>
       </div>
@@ -72,5 +71,28 @@
             <small class="text-muted">9</small>
             </button>
       </div>
+    </div> -->
+    <mat-accordion>
+      <div *ngFor="let set of sets">
+      <mat-expansion-panel (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false">
+        <mat-expansion-panel-header>
+          <mat-panel-title>
+            {{set.setname}}
+          </mat-panel-title>
+          <mat-panel-description>
+            {{set.description}}
+          </mat-panel-description>
+          <mat-panel-description>
+            updated at: {{set.updatedAt}}
+          </mat-panel-description>
+        </mat-expansion-panel-header>
+        <div *ngFor="let page of set.pages">
+        <p>{{page.description}} 
+          <a>add</a>
+        </p>
+      </div>
+      </mat-expansion-panel>
     </div>
-</div>
+    </mat-accordion>
+    

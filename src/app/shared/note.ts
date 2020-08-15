@@ -5,6 +5,8 @@ export class Note {
     meaning: string;
     comment: string;
     examples: Example[];
-    practive: boolean;
-    time: string;
+    practice: boolean;
+    timestamps: string;
+    pronounce: string;
+    recording: string;
 }

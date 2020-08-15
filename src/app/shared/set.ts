@@ -1,11 +1,15 @@
-  import {Note} from './note';
+  import {Page} from './page';
 
   export class Set {
     _id: string;
     setname: string;
     author: string;
-    notes: Note [];
+    pages: Page [];
     description: string;
     photo: string;
-    date: string;
+    updatedAt: string;
+    textbook: string;
+    level: string;
+    fromLanguage: string;
+    toLanguage: string;
 }

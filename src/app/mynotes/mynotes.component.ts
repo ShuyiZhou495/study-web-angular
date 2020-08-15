@@ -16,6 +16,8 @@ import { SetService } from '../services/set.service';
   
     sets: Set[];
     setErrMess: String;
+    public isCollapsed = false;
+    public seletedSet: Set;
   
     constructor(private setservice: SetService,
       @Inject('baseURL') private baseURL) { }
@@ -24,5 +26,9 @@ import { SetService } from '../services/set.service';
       this.setservice.getSets()
         .subscribe(set=> this.sets = set,
           errmess => this.setErrMess = <any>errmess);
+    }
+
+    onSelect(set: Set) {
+      this.seletedSet = set;
     }
   }
