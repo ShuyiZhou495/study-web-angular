@@ -73,9 +73,10 @@
       </div>
     </div> -->
     <mat-accordion>
-      <div *ngFor="let set of sets">
-      <mat-expansion-panel (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false">
+
+      <mat-expansion-panel *ngFor="let set of sets"
+      (opened)="panelOpenState = true"
+                           (closed)="panelOpenState = false" >
         <mat-expansion-panel-header>
           <mat-panel-title>
             {{set.setname}}
@@ -87,12 +88,9 @@
             updated at: {{set.updatedAt}}
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <div *ngFor="let page of set.pages">
-        <p>{{page.description}} 
-          <a>add</a>
+        <p *ngFor="let page of set.pages">{{page.description}} 
+          <button mat-raised-button (click)="onSelect(set, page); openDialog()">Pick one</button>
         </p>
-      </div>
       </mat-expansion-panel>
-    </div>
     </mat-accordion>
     

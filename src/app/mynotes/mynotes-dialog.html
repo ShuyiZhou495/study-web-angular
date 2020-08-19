@@ -1,0 +1,20 @@
+<h1 mat-dialog-title>{{data.set}} {{data.page}}</h1>
+<div mat-dialog-content>
+  <p>New Note</p>
+  <mat-form-field>
+    <mat-label>Word</mat-label>
+    <input matInput [(ngModel)]="data.word">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Meaning</mat-label>
+    <input matInput [(ngModel)]="data.meaning">
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Comment</mat-label>
+    <input matInput [(ngModel)]="data.comment">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.word" cdkFocusInitial>Ok</button>
+</div>
