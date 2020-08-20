@@ -87,9 +87,12 @@
           <mat-panel-description>
             updated at: {{set.updatedAt}}
           </mat-panel-description>
+          <mat-panel-description>
+            <button mat-raised-button (click)="onSelectSet(set); openPostPageDialog()">Add a page</button>
+          </mat-panel-description>
         </mat-expansion-panel-header>
         <p *ngFor="let page of set.pages">{{page.description}} 
-          <button mat-raised-button (click)="onSelect(set, page); openDialog()">Pick one</button>
+          <button mat-raised-button (click)="onSelect(set, page); openPostNoteDialog()">Pick one</button>
         </p>
       </mat-expansion-panel>
     </mat-accordion>

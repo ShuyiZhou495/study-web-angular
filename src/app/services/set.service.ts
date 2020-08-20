@@ -33,10 +33,14 @@ export class SetService{
         return this.getSets().pipe(map(Sets => Sets.map(set => set._id)))
           .pipe(catchError(error => error));
       }
-    
-      postComment(setId: string, note: any) {
-        return this.http.post(baseURL + 'sets/' + setId + '/notes', note)
+
+      postNewPage(setId: string, page: any) {
+        return this.http.post(baseURL + 'sets/' + setId +'/pages/', page)
         .pipe(catchError(this.processHTTPMsgService.handleError));
+      }
     
+      postNote(setId: string, pageId: string, note: any) {
+        return this.http.post(baseURL + 'sets/' + setId +'/pages/' + pageId + '/notes/', note)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
       }
 }

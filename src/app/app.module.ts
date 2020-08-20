@@ -16,7 +16,7 @@ import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { MyNoteComponent, NoteDialog} from './mynotes/mynotes.component';
+import { MyNoteComponent, NoteDialog, PageDialog} from './mynotes/mynotes.component';
 import { DialogOverviewExample, DialogOverviewExampleDialog} from './dialog/dialog-overview-example'
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
@@ -34,7 +34,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     MyNoteComponent,
     DialogOverviewExample, 
     DialogOverviewExampleDialog,
-    NoteDialog
+    NoteDialog,
+    PageDialog
   ],
   imports: [
     MatFormFieldModule,
@@ -62,7 +63,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
   entryComponents: [
     DialogOverviewExample, 
     DialogOverviewExampleDialog,
-    NoteDialog
+    NoteDialog,
+    PageDialog
   ]
 })
 export class AppModule { }

@@ -5,8 +5,6 @@ import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Note } from '../shared/note';
 import { Page } from '../shared/page';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatInputModule } from '@angular/material/input';
 
 
 @Component({
@@ -27,13 +25,8 @@ import { MatInputModule } from '@angular/material/input';
     selectedPage: Page;
     pageDescription: String;
     noteForm: FormGroup;
-    word: string;
-    meaning: string;
-    comment: string;
-    practice: boolean;
-    timestamps: string;
-    pronounce: string;
-    recording: string;
+    newNote: Note;
+    newPage: Page;
   
     constructor(private setservice: SetService,
       @Inject('baseURL') private baseURL, 
@@ -51,41 +44,48 @@ import { MatInputModule } from '@angular/material/input';
       this.selectedPage = page;
     }
 
-    openDialog(): void {
+    onSelectSet(set: Set) {
+      this.selectedSet = set;
+    }
+
+    openPostNoteDialog(): void {
       const dialogRef = this.dialog.open(NoteDialog, {
         width: '500px',
         data: {
-          word: this.word, 
           set: this.selectedSet.setname, 
           page: this.selectedPage.description,
-          meaning: this.meaning,
-          comment: this.comment,
-          practice: this.practice,
-          timestamps: this.timestamps,
-          pronounce: this.pronounce,
-          recording: this.recording
         }
       });
   
       dialogRef.afterClosed().subscribe(result => {
-        console.log('The dialog was closed');
-        this.word = result;
+        this.newNote = result;
+        if(result){
+        this.setservice.postNote(this.selectedSet._id, this.selectedPage._id, this.newNote).subscribe(()=>{
+          console.log('posted');
+        })
+      }
       });
     }
-
-    createForm() {
-      this.noteForm = this.fb.group({
-        word: '',
-        meaning: '',
-        comment: '',
-        practice: true,
-        timestamps: '',
-        pronounce: '',
-        recording: ''
+    openPostPageDialog(): void {
+      const dialogPageRef = this.dialog.open(PageDialog, {
+        width: '500px',
+        data: {
+          set: this.selectedSet.setname,
+          descripPlaceHolder: 'page ' + this.selectedSet.pages.length.toString()
+        }
       });
   
-      this.noteForm.valueChanges;
-  
+      dialogPageRef.afterClosed().subscribe(result => {
+        this.newPage = result;
+        
+        if(result){
+        this.setservice.postNewPage(this.selectedSet._id, this.newPage).subscribe(()=>{
+          
+          console.log('posted');
+          window.location.reload();
+        })
+      }
+      });
     }
   }
 
@@ -106,13 +106,42 @@ import { MatInputModule } from '@angular/material/input';
     templateUrl: 'mynotes-dialog.html',
   })
   export class NoteDialog {
-  
+    word: string;
+    meaning: string;
+    comment: string;
+    practice: boolean;
+    pronounce: string;
+    recording: string;
+    set: string;
+    page: string;
     constructor(
       public dialogRef: MatDialogRef<NoteDialog>,
       @Inject(MAT_DIALOG_DATA) public data: DialogNote) {}
   
     onNoClick(): void {
       this.dialogRef.close();
+    }
+  
+  }
+
+  export interface DialogPage{
+    description: string;
+    setid: string;
+  }
+
+  @Component({
+    selector: 'app-mypage-dialog',
+    templateUrl: 'mypage-dialog.html',
+  })
+  export class PageDialog {
+    description: string;
+    set: string;
+    constructor(
+      public dialogPageRef: MatDialogRef<PageDialog>,
+      @Inject(MAT_DIALOG_DATA) public data: DialogPage) {}
+  
+    onNoClick(): void {
+      this.dialogPageRef.close();
     }
   
   }

@@ -1,0 +1,15 @@
+<h1 mat-dialog-title>{{data.setid}}</h1>
+<div mat-dialog-content>
+  <p>New Page</p>
+  <mat-form-field>
+    <mat-label>description</mat-label>
+    <input matInput [(ngModel)]="description" [placeholder]="data.descripPlaceHolder">
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]='{
+      "description": description, 
+      "notes": []
+    }' [disabled]="description==''" cdkFocusInitial>Ok</button>
+</div>
