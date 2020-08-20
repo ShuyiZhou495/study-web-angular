@@ -126,6 +126,7 @@ import { Page } from '../shared/page';
 
   export interface DialogPage{
     description: string;
+    descripPlaceHolder: string;
     setid: string;
   }
 
