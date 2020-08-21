@@ -104,12 +104,14 @@ import { baseURL } from '../shared/baseurl';
       }
 
       deleteThisPage(setId: string, pageId: string){
-          var togo, link="http://localhost:4200/onepage/"+this.setId;
+          var togo, link;
           if(this.totalPage>1) {
+            link="http://localhost:4200/onepage/"+this.setId;
               if(this.pageNo==0) togo=0;
               else togo = +this.pageNo - +1;
               link = link + "/" + togo;
           }
+          else link="http://localhost:4200/oneset/"+this.setId;
           this.setservice.deletePage(setId, pageId).subscribe(()=>{
             window.location.assign(link);
           })
