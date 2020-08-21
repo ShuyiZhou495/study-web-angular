@@ -1,10 +1,12 @@
 import { Routes, CanActivate } from '@angular/router';
 import { HomeComponent } from '../home/home.component';
 import { MyNoteComponent } from '../mynotes/mynotes.component';
-import { DialogOverviewExample, DialogOverviewExampleDialog} from '../dialog/dialog-overview-example'
+import { OnePageComponent } from '../onePage/onepage.component';
+import { PageHomeComponent } from '../pageHome/pagehome.component'
 
 export const routes: Routes = [
-  { path: 'home',  component: HomeComponent },
+  { path: '',  component: HomeComponent },
   { path: 'mynote',  component: MyNoteComponent},
-  { path: '', component: DialogOverviewExample}
+  { path: 'oneset/:setId', component: PageHomeComponent},
+  { path: 'onepage/:setId/:pageNo', component: OnePageComponent}
 ];

@@ -1,6 +1,7 @@
 import {Example} from './example';
 
 export class Note {
+    _id: string;
     word: string;
     meaning: string;
     comment: string;

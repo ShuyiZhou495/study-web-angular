@@ -6,6 +6,9 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import {MatDialogModule} from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
+import {MatCardModule} from '@angular/material/card'
+import { FlexLayoutModule } from '@angular/flex-layout';
+import {MatButtonModule} from '@angular/material/button';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -16,8 +19,11 @@ import { ProcessHTTPMsgService } from './services/process-httpmsg.service';
 import { FooterComponent } from './footer/footer.component';
 import { HeaderComponent } from './header/header.component';
 import { HomeComponent } from './home/home.component';
-import { MyNoteComponent, NoteDialog, PageDialog} from './mynotes/mynotes.component';
-import { DialogOverviewExample, DialogOverviewExampleDialog} from './dialog/dialog-overview-example'
+import { MyNoteComponent} from './mynotes/mynotes.component';
+import { NoteDialog} from './add-note/add-note.component'
+import { PageDialog } from './add-page/add-page.component'
+import { OnePageComponent } from './onePage/onepage.component';
+import { PageHomeComponent } from './pageHome/pagehome.component'
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
@@ -32,10 +38,10 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     HeaderComponent,
     HomeComponent,
     MyNoteComponent,
-    DialogOverviewExample, 
-    DialogOverviewExampleDialog,
     NoteDialog,
-    PageDialog
+    PageDialog,
+    OnePageComponent,
+    PageHomeComponent
   ],
   imports: [
     MatFormFieldModule,
@@ -49,7 +55,9 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     ReactiveFormsModule,
     HttpClientModule,
     MatExpansionModule,
-
+    MatCardModule,
+    FlexLayoutModule,
+    MatButtonModule
   ],
   exports: [
     MatFormFieldModule,
@@ -61,8 +69,6 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
   ],
   bootstrap: [AppComponent],
   entryComponents: [
-    DialogOverviewExample, 
-    DialogOverviewExampleDialog,
     NoteDialog,
     PageDialog
   ]

@@ -49,8 +49,8 @@
   </button>
         </form>
     </div>
-    <mat-accordion>
 
+    <mat-accordion>
       <mat-expansion-panel *ngFor="let set of sets"
       (opened)="panelOpenState = true"
                            (closed)="panelOpenState = false" >
@@ -65,11 +65,14 @@
             updated at: {{set.updatedAt}}
           </mat-panel-description>
           <mat-panel-description>
+            <button mat-raised-button [routerLink]="['/oneset', set._id]">View</button>
             <button mat-raised-button (click)="onSelectSet(set); openPostPageDialog()">Add a page</button>
           </mat-panel-description>
         </mat-expansion-panel-header>
-        <p *ngFor="let page of set.pages">{{page.description}} 
-          <button mat-raised-button (click)="onSelect(set, page); openPostNoteDialog()">Pick one</button>
+        <p *ngFor="let page of set.pages; index as i">{{page.description}} 
+          <button mat-raised-button (click)="onSelect(set, page); openPostNoteDialog()">Add a note</button>
+          <button mat-button (click)="deleteThisPage(set._id, page._id)">Delete</button>
+          <button mat-button [routerLink]="['/onepage', set._id,i]">View</button>
         </p>
       </mat-expansion-panel>
     </mat-accordion>

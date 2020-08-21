@@ -1,10 +1,12 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { Set } from '../shared/set';
 import { SetService } from '../services/set.service';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material/dialog';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {MatDialog} from '@angular/material/dialog';
+import {FormGroup} from '@angular/forms';
 import { Note } from '../shared/note';
 import { Page } from '../shared/page';
+import {NoteDialog} from '../add-note/add-note.component'
+import {PageDialog} from '../add-page/add-page.component'
 
 
 @Component({
@@ -30,8 +32,7 @@ import { Page } from '../shared/page';
   
     constructor(private setservice: SetService,
       @Inject('baseURL') private baseURL, 
-      public dialog: MatDialog,
-      private fb: FormBuilder) { }
+      public dialog: MatDialog) { }
   
     ngOnInit() {
       this.setservice.getSets()
@@ -87,62 +88,10 @@ import { Page } from '../shared/page';
       }
       });
     }
-  }
 
-  export interface DialogNote{
-    word: string;
-    meaning: string;
-    comment: string;
-    practice: boolean;
-    timestamps: string;
-    pronounce: string;
-    recording: string;
-    set: string;
-    page: string;
-  }
-
-  @Component({
-    selector: 'app-mynote-dialog',
-    templateUrl: 'mynotes-dialog.html',
-  })
-  export class NoteDialog {
-    word: string;
-    meaning: string;
-    comment: string;
-    practice: boolean;
-    pronounce: string;
-    recording: string;
-    set: string;
-    page: string;
-    constructor(
-      public dialogRef: MatDialogRef<NoteDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogNote) {}
-  
-    onNoClick(): void {
-      this.dialogRef.close();
+    deleteThisPage(setId: string, pageId: string){
+      this.setservice.deletePage(setId, pageId).subscribe(()=>{location.reload();});
     }
-  
   }
 
-  export interface DialogPage{
-    description: string;
-    descripPlaceHolder: string;
-    setid: string;
-  }
 
-  @Component({
-    selector: 'app-mypage-dialog',
-    templateUrl: 'mypage-dialog.html',
-  })
-  export class PageDialog {
-    description: string;
-    set: string;
-    constructor(
-      public dialogPageRef: MatDialogRef<PageDialog>,
-      @Inject(MAT_DIALOG_DATA) public data: DialogPage) {}
-  
-    onNoClick(): void {
-      this.dialogPageRef.close();
-    }
-  
-  }

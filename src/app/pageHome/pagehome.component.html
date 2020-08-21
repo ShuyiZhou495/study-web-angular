@@ -1,0 +1,15 @@
+<button mat-button [routerLink]="['/mynote']">back to my notebooks</button>
+<h1 *ngIf="totalPage==0">
+    There is no page in set {{setName}}
+</h1>
+<div *ngIf="totalPage>0">
+    <h1>Choose a page to go</h1>
+    <div *ngFor="let page of pages; index as i">
+        <p>
+            <button mat-raised-button [routerLink]="['/onepage', setId, i]">Page {{i}}: {{page.description}}</button>
+            <button mat-raised-button (click)="deleteThisPage(setId, page._id)"> Delete this page</button>
+        </p>
+    </div>
+</div>
+  <button mat-raised-button (click)="openPostPageDialog()">Add a page</button>
+  

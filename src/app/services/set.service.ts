@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Set } from '../shared/set';
+import { Page } from '../shared/page';
 
 import { Observable } from 'rxjs';
 import { map, catchError } from 'rxjs/operators';
@@ -41,6 +42,16 @@ export class SetService{
     
       postNote(setId: string, pageId: string, note: any) {
         return this.http.post(baseURL + 'sets/' + setId +'/pages/' + pageId + '/notes/', note)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+      }
+
+      deletePage(setId: string, pageId: string){
+        return this.http.delete(baseURL + 'sets/' + setId +'/pages/' + pageId)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+      }
+
+      deleteNote(setId: string, pageId: string, noteId: string){
+        return this.http.delete(baseURL + 'sets/' + setId +'/pages/' + pageId + '/notes/' + noteId)
         .pipe(catchError(this.processHTTPMsgService.handleError));
       }
 }
