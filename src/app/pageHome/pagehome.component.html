@@ -64,10 +64,10 @@
     fxLayoutAlign.gt-md="space-around center"
     fxLayoutGap.xs="0">
   <div fxFlex="100" *ngFor="let page of pages; index as i">
-   <mat-card class="hover note-content"  [routerLink]="['/onepage', setId, i]">
+   <mat-card >
       <mat-card-header>
-        <mat-card-title>
-          <h4>Page {{i}}: {{page.description}}</h4>
+        <mat-card-title  >
+          <h4  class="hover note-content" [routerLink]="['/onepage', setId, i]" mat-button>Page {{+i +1}}: {{page.description}}</h4>
         </mat-card-title>
     </mat-card-header>
       <mat-card-content>
@@ -80,6 +80,7 @@
     </mat-card>
   </div>
   </div>
+</div>
 
   <div class="d-flex align-items-center text-black bg-purple rounded tools-right tools-left hover">
   <button mat-raised-button (click)="openPostPageDialog()">Add a page</button>

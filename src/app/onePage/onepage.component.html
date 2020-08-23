@@ -56,7 +56,8 @@
       <hr>
     </div>
     <div>
-        <h3>Page {{pageNo}}: {{description}}</h3>
+      <h3 *ngIf="description==''">Page {{+pageNo + +1}}</h3>
+        <h3 *ngIf="description!=''">Page {{+pageNo + +1}}: {{description}}</h3>
         <hr>
       </div>
   </div>

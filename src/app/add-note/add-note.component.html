@@ -5,14 +5,18 @@
     <mat-label>Word</mat-label>
     <input matInput [(ngModel)]="word">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Meaning</mat-label>
     <input matInput [(ngModel)]="meaning">
   </mat-form-field>
+  <br>
   <mat-form-field>
     <mat-label>Comment</mat-label>
-    <input matInput [(ngModel)]="comment">
+    <textarea matInput [(ngModel)]="comment"></textarea>
   </mat-form-field>
+  <br>
+    <mat-checkbox [(ngModel)]="data.practice">add to practice</mat-checkbox>
 </div>
 <div mat-dialog-actions>
   <button mat-button (click)="onNoClick()">No Thanks</button>
@@ -21,7 +25,7 @@
       "meaning": meaning, 
       "comment": comment, 
       "examples": [],
-      "practice": true,
+      "practice": data.practice,
       "pronounce": "",
       "recording": ""
     }' [disabled]="word==''" cdkFocusInitial>Ok</button>

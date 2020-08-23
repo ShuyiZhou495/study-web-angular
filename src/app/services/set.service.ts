@@ -35,6 +35,11 @@ export class SetService{
           .pipe(catchError(error => error));
       }
 
+      postNewSet(set: any) {
+        return this.http.post(baseURL + 'sets/', set)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+      }
+
       postNewPage(setId: string, page: any) {
         return this.http.post(baseURL + 'sets/' + setId +'/pages/', page)
         .pipe(catchError(this.processHTTPMsgService.handleError));

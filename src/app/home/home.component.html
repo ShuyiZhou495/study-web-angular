@@ -62,10 +62,10 @@
             <svg sclass="bd-placeholder-img card-img-top"  height="225" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="xMidYMid slice" focusable="false" role="img" aria-label="Placeholder: Thumbnail">
                 <title>{{sets.setname}}</title>
                 <rect style="width:18rem;" height="100%" fill="#55595c"/>
-                <text x="50%" y="50%" fill="#eceeef" dy=".3em">{{set.author}}</text>
+                <text x="30%" y="50%" fill="#eceeef" dy=".3em">{{set.setname}}</text>
             </svg>
             <div class="card-body">
-              <p class="card-text">{{set.description}}</p>
+              <p class="card-text">{{set.description}} by {{set.author}}</p>
               <div class="d-flex justify-content-between align-items-center">
                 <div class="btn-group">
                   <button type="button" [routerLink]="['/oneset', set._id]" class="btn btn-sm btn-outline-secondary">View</button>

@@ -1,0 +1,54 @@
+<h1 mat-dialog-title>New Set</h1>
+<div mat-dialog-content>
+  <mat-form-field>
+    <mat-label>set name</mat-label>
+    <input matInput [(ngModel)]="setname" required>
+  </mat-form-field>
+<br>
+  <mat-form-field>
+    <mat-label>textbook</mat-label>
+    <input matInput [(ngModel)]="textbook">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>level</mat-label>
+    <mat-select [(ngModel)]="level" required>
+      <mat-option value="Beginner">Beginner</mat-option>
+      <mat-option value="Intermediate">Intermediate</mat-option>
+      <mat-option value="Hard">Hard</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>from language</mat-label>
+    <mat-select [(ngModel)]="fromLanguage" required>
+      <mat-option value="Japanese"> Japanese</mat-option>
+      <mat-option value="Chinese"> Chinese</mat-option>
+      </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>to language</mat-label>
+    <mat-select [(ngModel)]="toLanguage" required>
+      <mat-option value="Japanese"> Japanese</mat-option>
+      <mat-option value="Chinese"> Chinese</mat-option>
+      </mat-select>
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>description</mat-label>
+    <textarea matInput [(ngModel)]="description"></textarea>
+  </mat-form-field>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]='{
+      "setname": setname,
+      "description": description, 
+      "textbook": "Japn",
+      "level": level,
+      "fromLanguage": "Chinese",
+      "toLanguage": "Japanese",
+      "author": "sue/tann"
+    }' [disabled]="setname==''|| fromLanguage=='' || level=='' || toLanguage==''" cdkFocusInitial>Ok</button>
+</div>
