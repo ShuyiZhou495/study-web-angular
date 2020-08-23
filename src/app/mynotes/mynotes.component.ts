@@ -8,6 +8,7 @@ import { Page } from '../shared/page';
 import {NoteDialog} from '../add-note/add-note.component';
 import {PageDialog} from '../add-page/add-page.component';
 import { SetDialog } from '../add-set/add-set.component';
+import { QuickNoteDialog } from '../quick-add/quick-add.component'
 
 
 @Component({
@@ -31,6 +32,8 @@ import { SetDialog } from '../add-set/add-set.component';
     newNote: Note;
     newPage: Page;
     newSet: Set;
+    newSetid: string;
+    newPageid: string;
   
     constructor(private setservice: SetService,
       @Inject('baseURL') private baseURL, 
@@ -108,10 +111,73 @@ import { SetDialog } from '../add-set/add-set.component';
       });
     }
 
+    openQuickAddDialog(): void {
+      const dialogQARef = this.dialog.open(QuickNoteDialog, {
+        width: '500px',
+        data: {
+          sets: this.sets,
+          practice: true
+        }
+      });
+
+      dialogQARef.afterClosed().subscribe(result => {
+        this.newNote = result;
+        if(result.setid=='-2'){
+          this.newSet = result;
+          this.setservice.postNewSet(this.newSet).subscribe(()=>{
+            console.log('post new set');
+          });
+          this.setservice.getSets()
+          .subscribe(set=> {
+            console.log(set);
+            console.log(set[set.length-1]._id);
+            this.newPage = new Page();
+            this.newPage.description = result.pageDescription;
+            this.setservice.postNewPage(set[set.length-1]._id, this.newPage).subscribe(()=> {
+              console.log('post new page');
+              this.setservice.getSet(set[set.length-1]._id).subscribe(setnew=>{
+                console.log('new', setnew._id);
+                console.log(setnew.pages);
+                this.setservice.postNote(setnew._id, setnew.pages[setnew.pages.length-1]._id, this.newNote).subscribe(()=>{
+                  console.log('posted');
+                  location.reload();
+                });
+              })    
+            });
+          });
+        }
+        else {
+          if (result.pageid=="newPage") {
+            this.newPage = new Page();
+            this.newPage.description = result.pageDescription;
+            this.setservice.postNewPage(this.sets[result.setid]._id, this.newPage).subscribe(()=> {
+              console.log('post new page');
+              this.setservice.getSet(this.sets[result.setid]._id).subscribe(setnew=>{
+                this.setservice.postNote(setnew._id, setnew.pages[setnew.pages.length-1]._id, this.newNote).subscribe(()=>{
+                  console.log('posted');
+                  location.reload();
+                });
+              })  
+            });
+          }
+          else{
+
+              this.setservice.postNote(this.sets[result.setid]._id, result.pageid, this.newNote).subscribe(()=>{
+                console.log('posted');
+              });
+            }
+          
+        }
+
+    })
+  }
 
     deleteThisPage(setId: string, pageId: string){
       this.setservice.deletePage(setId, pageId).subscribe(()=>{location.reload();});
     }
+
+    deleteThisSet(setId: string){
+      this.setservice.deleteSet(setId).subscribe(()=>{location.reload();});
+    }
+
   }
-
-

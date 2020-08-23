@@ -30,8 +30,13 @@ export class SetService{
           .pipe(catchError(this.processHTTPMsgService.handleError));
       }
     
-      getSetIds(): Observable<number[] | any> {
+      getSetIds(): Observable<string[] | any> {
         return this.getSets().pipe(map(Sets => Sets.map(set => set._id)))
+          .pipe(catchError(error => error));
+      }
+
+      getPageIds(id: string): Observable<string[] | any> {
+        return this.http.get<Page[]>(baseURL + 'sets/' + id+'/pages/').pipe(map(Pages => Pages.map(page => page._id)))
           .pipe(catchError(error => error));
       }
 
@@ -49,6 +54,12 @@ export class SetService{
         return this.http.post(baseURL + 'sets/' + setId +'/pages/' + pageId + '/notes/', note)
         .pipe(catchError(this.processHTTPMsgService.handleError));
       }
+
+      deleteSet(setId: string){
+        return this.http.delete(baseURL + 'sets/' + setId)
+        .pipe(catchError(this.processHTTPMsgService.handleError));
+      }
+
 
       deletePage(setId: string, pageId: string){
         return this.http.delete(baseURL + 'sets/' + setId +'/pages/' + pageId)

@@ -7,7 +7,7 @@
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <ul class="navbar-nav mr-auto">
           <li class="nav-item">
-            <a class="nav-link" href="afterlogin.html">Home</a>
+            <a class="nav-link" [routerLink]="['']">Home</a>
           </li>
           <li class="nav-item active">
             <a class="nav-link" href="#">My notes<span class="sr-only">(current)</span></a>
@@ -24,7 +24,7 @@
   </svg>
   </button>
         </form>
-      <a mat-raised-button color="accent" href="#">Quick add</a>
+      <button mat-raised-button color="accent" (click)="openQuickAddDialog()">Quick add</button>
       <a class="btn btn-outline-info" href="index.html">log out</a>
       </div>
     </nav>
@@ -62,6 +62,7 @@
           <mat-panel-description>
             <button mat-raised-button class="btn btn-info btn-sm" [routerLink]="['/oneset', set._id]">View</button>
             <button mat-raised-button class="btn btn-info btn-sm" (click)="onSelectSet(set); openPostPageDialog()">Add Page</button>
+            <button mat-raised-button class="btn btn-info btn-sm" (click)="deleteThisSet(set._id)">Delete</button>
           </mat-panel-description>
         </p>
         </mat-expansion-panel-header>

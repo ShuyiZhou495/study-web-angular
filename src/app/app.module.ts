@@ -11,7 +11,7 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import {MatButtonModule} from '@angular/material/button';
 import {MatGridListModule} from '@angular/material/grid-list';
 import { MatSelectModule} from '@angular/material/select';
-import { MatCheckboxModule} from '@angular/material/checkbox'
+import { MatCheckboxModule} from '@angular/material/checkbox';
 
 import { FormsModule } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -28,6 +28,7 @@ import { PageDialog } from './add-page/add-page.component';
 import { SetDialog } from './add-set/add-set.component';
 import { OnePageComponent } from './onePage/onepage.component';
 import { PageHomeComponent } from './pageHome/pagehome.component';
+import { QuickNoteDialog } from './quick-add/quick-add.component'
 
 import { AppRoutingModule } from './app-routing/app-routing.module';
 
@@ -46,7 +47,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
     PageDialog,
     OnePageComponent,
     PageHomeComponent,
-    SetDialog
+    SetDialog,
+    QuickNoteDialog
   ],
   imports: [
     MatFormFieldModule,
@@ -79,7 +81,8 @@ import {HTTP_INTERCEPTORS} from '@angular/common/http';
   entryComponents: [
     NoteDialog,
     PageDialog,
-    SetDialog
+    SetDialog,
+    QuickNoteDialog
   ]
 })
 export class AppModule { }
