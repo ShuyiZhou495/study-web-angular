@@ -65,16 +65,17 @@
           </mat-panel-description>
         </p>
         </mat-expansion-panel-header>
-        <div *ngFor="let page of set.pages; index as i"  class="page-bar">
+        <div *ngFor="let page of set.pages; index as i" >
           <p>
-          <span *ngIf="page.description==''" [routerLink]="['/onepage', set._id,i]">Page {{+i +1}}</span>
-          <span *ngIf="page.description!=''" [routerLink]="['/onepage', set._id,i]">Page {{+i +1}}: {{page.description}}</span>
-          
+          <button mat-button class="page-bar" *ngIf="page.description==''" [routerLink]="['/onepage', set._id,i]">Page {{+i +1}}</button>
+          <button mat-button class="page-bar" *ngIf="page.description!=''" [routerLink]="['/onepage', set._id,i]">Page {{+i +1}}: {{page.description}}</button>
+
           <span class="tools-right">
           <button mat-raised-button color="warn" (click)="onSelect(set, page); openPostNoteDialog()">Add note</button>
           <button mat-raised-button (click)="deleteThisPage(set._id, page._id)">Delete</button>
           </span>
           </p>
+
         </div>
       </mat-expansion-panel>
     </mat-accordion>
