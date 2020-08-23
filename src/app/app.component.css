@@ -1,17 +1,51 @@
 body {
-    padding: 50px;
     font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
-  　padding-bottom: 20px;
-  }
-  
-  a {
+}
+a {
     color: #00B7FF;
-  }
-  
-  .navbar {
+}
+.navbar {
     margin-bottom: 20px;
-  }
-  
-  nav.navbar>div>form.form-inline{
+ }
+
+nav.navbar>div>form.form-inline{
       margin-right: 10px;
-  }
+}
+
+.tools-right{
+  float: right;
+}
+
+.tools-left{
+  float: left;
+}
+
+.notebook-header{
+  background-color: #fff;
+}
+
+.page-bar{
+  box-shadow:  0 4px 2px -2px gray;
+}
+
+.page-bar:hover {
+  background-color: #eee;
+}
+
+.note-content{
+  margin-top: 20px;
+  margin-bottom: 20px;
+  margin-right: 0;
+}
+
+.hover>button:hover{
+background-color: #eee;
+}
+
+.hover:hover{
+background-color: #eee;
+}
+
+.footer{
+  margin-top: 20px;
+}

@@ -24,16 +24,7 @@
   </svg>
   </button>
         </form>
-      <div class="dropdown" style="margin-right: 10px;">
-        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Add note
-        </button>
-        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-          <a class="dropdown-item" href="addnew.html">create new note</a>
-          <a class="dropdown-item" href="#">quick add</a>
-          <a class="dropdown-item" href="#">Something else here</a>
-        </div>
-      </div>
+      <a mat-raised-button colar="accent" href="#">Quick add</a>
       <a class="btn btn-outline-info" href="index.html">log out</a>
       </div>
     </nav>
@@ -45,35 +36,47 @@
           <button class="btn btn-link text-secondary my-2 my-sm-0" type="submit" ><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
     <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+    <button mat-raised-button color="primary">Add notebook</button>
   </svg>
   </button>
         </form>
     </div>
 
-    <mat-accordion>
+    <mat-accordion class="example-headers-align" multi>
       <mat-expansion-panel *ngFor="let set of sets"
       (opened)="panelOpenState = true"
-                           (closed)="panelOpenState = false" >
+                           (closed)="panelOpenState = false" class="notebook-header">
         <mat-expansion-panel-header>
-          <mat-panel-title>
+          <mat-panel-title class="font-weight-bolder">
             {{set.setname}}
           </mat-panel-title>
-          <mat-panel-description>
+          <mat-panel-description id="notebook-description">
             {{set.description}}
           </mat-panel-description>
+          <small class="tools-right">
           <mat-panel-description>
             updated at: {{set.updatedAt}}
           </mat-panel-description>
+          </small>
+          <p class="tools-right btn-group">
           <mat-panel-description>
-            <button mat-raised-button [routerLink]="['/oneset', set._id]">View</button>
-            <button mat-raised-button (click)="onSelectSet(set); openPostPageDialog()">Add a page</button>
+            <button mat-raised-button class="btn btn-info btn-sm" [routerLink]="['/oneset', set._id]">View</button>
+            <button mat-raised-button class="btn btn-info btn-sm" (click)="onSelectSet(set); openPostPageDialog()">Add note</button>
           </mat-panel-description>
-        </mat-expansion-panel-header>
-        <p *ngFor="let page of set.pages; index as i">{{page.description}} 
-          <button mat-raised-button (click)="onSelect(set, page); openPostNoteDialog()">Add a note</button>
-          <button mat-button (click)="deleteThisPage(set._id, page._id)">Delete</button>
-          <button mat-button [routerLink]="['/onepage', set._id,i]">View</button>
         </p>
+        </mat-expansion-panel-header>
+        <div *ngFor="let page of set.pages; index as i" [routerLink]="['/onepage', set._id,i]" class="page-bar">
+          <p>
+          {{page.description}}
+          <span class="tools-right">
+          <button mat-raised-button color="warn" (click)="onSelect(set, page); openPostNoteDialog()">Add note</button>
+          <button mat-raised-button (click)="deleteThisPage(set._id, page._id)">Delete</button>
+          </span>
+          </p>
+        </div>
       </mat-expansion-panel>
     </mat-accordion>
-    
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>

@@ -1,13 +1,56 @@
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark  bg-dark">
+      <a class="navbar-brand" href="#">Study Web</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="afterlogin.html">Home</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" [routerLink]="['/mynote']">My notes<span class="sr-only">(current)</span></a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">My likes</a>
+          </li>
+        </ul>
+        <form class="form-inline mt-2 mt-md-0" style="margin-right: 10px;">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+          <button class="btn btn-link text-light my-2 my-sm-0" type="submit" ><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+  </svg>
+  </button>
+        </form>
+      <a mat-raised-button colar="accent" href="#">Quick add</a>
+      <a class="btn btn-outline-info" href="index.html">log out</a>
+      </div>
+    </nav>
+  </header>
+    <div class="d-flex align-items-center p-3 my-3 text-black bg-purple rounded shadow-sm">
+      <h2 style="padding-right: 15px;"><a [routerLink]="['/mynote']" class="text-reset">My Notes</a></h2>
+      <form class="form-inline mt-2 mt-md-0" style="margin-right: 10px;">
+          <input class="form-control mr-sm-2" type="text" placeholder="Search in my notes" aria-label="Search">
+          <button class="btn btn-link text-secondary my-2 my-sm-0" type="submit" ><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-search" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+    <path fill-rule="evenodd" d="M10.442 10.442a1 1 0 0 1 1.415 0l3.85 3.85a1 1 0 0 1-1.414 1.415l-3.85-3.85a1 1 0 0 1 0-1.415z"/>
+    <path fill-rule="evenodd" d="M6.5 12a5.5 5.5 0 1 0 0-11 5.5 5.5 0 0 0 0 11zM13 6.5a6.5 6.5 0 1 1-13 0 6.5 6.5 0 0 1 13 0z"/>
+   </svg>
+   </button>
+        </form>
+    </div>
+
+
+
 <div class="container"
     fxLayout="row wrap"
     fxLayout.sm="column"
     fxLayout.xs="column"
     fxLayoutAlign.gt-md="space-around center"
-    fxLayoutGap="10px" 
     fxLayoutGap.xs="0">
 
   <div fxFlex="100">
-      <button mat-button [routerLink]="['/mynote']">back to my notebooks</button>
     <div>
       <h3>{{setName | uppercase}}</h3>
       <hr>
@@ -17,9 +60,14 @@
         <hr>
       </div>
   </div>
-
+  <div class="container"
+    fxLayout="row wrap"
+    fxLayout.sm="column"
+    fxLayout.xs="column"
+    fxLayoutAlign.gt-md="space-around center"
+    fxLayoutGap.xs="0">
   <div fxFlex="40" *ngFor="let note of notes">
-    <mat-card>
+   <mat-card class="note-content">
       <mat-card-header>
         <mat-card-title>
           <h3>{{note.word}}</h3>
@@ -29,11 +77,13 @@
         <p>meaning: {{note.meaning}}
         </p>
         <p>
-            comment: {{note.comment}}
+          comment: {{note.comment}}
         </p>
-        <p>
-            <button mat-button (click)="deleteThisNote(setId, pageId, note._id)">Delete this note</button>
-        </p>
+        <button mat-button (click)="deleteThisNote(setId, pageId, note._id)" class="tools-right">
+          <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+          <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+          </svg>delete</button>
       </mat-card-content>
       <!-- <mat-card-actions>
         <button mat-button [routerLink]="['/dishdetail', prev]"><span class="fa fa-chevron-left fa-lg"></span></button>
@@ -45,9 +95,13 @@
       </mat-card-actions> -->
     </mat-card>
   </div>
-  <button mat-raised-button (click)="openPostNoteDialog()">Add a note</button>
+  </div>
 
-  <button *ngIf="pageNo>0" mat-button [routerLink]="['/onepage', setId, +pageNo - +1]">prev page</button>
-  <button *ngIf="+totalPage - +pageNo > 1" mat-button [routerLink]="['/onepage', setId,+pageNo + +1]">next page</button>
+
+  <div class="d-flex align-items-center text-black bg-purple rounded tools-right tools-left hover">
+  <button mat-raised-button (click)="openPostNoteDialog()">Add a note</button>
+  <button *ngIf="pageNo>0" mat-raised-button [routerLink]="['/onepage', setId, +pageNo - +1]">prev page</button>
+  <button *ngIf="+totalPage - +pageNo > 1" mat-raised-button [routerLink]="['/onepage', setId,+pageNo + +1]">next page</button>
   <button mat-raised-button (click)="openPostPageDialog()">Add a page</button>
   <button mat-raised-button (click)="deleteThisPage(setId, pageId)"> Delete this page</button>
+  </div>
