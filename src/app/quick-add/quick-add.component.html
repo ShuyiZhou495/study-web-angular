@@ -1,0 +1,116 @@
+<h1 mat-dialog-title>quick add</h1>
+<div mat-dialog-content>
+  <p>New Note</p>
+  <mat-form-field>
+    <mat-label>Word</mat-label>
+    <input matInput [(ngModel)]="word">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Meaning</mat-label>
+    <input matInput [(ngModel)]="meaning">
+  </mat-form-field>
+  <br>
+  <mat-form-field>
+    <mat-label>Comment</mat-label>
+    <textarea matInput [(ngModel)]="comment"></textarea>
+  </mat-form-field>
+  <br>
+    <mat-checkbox [(ngModel)]="data.practice">add to practice</mat-checkbox>
+    <br>
+
+    <mat-form-field>
+        <mat-label>Select a set</mat-label>
+        <mat-select [(ngModel)]="setId" required [formControl]="SetControl">
+            <mat-option value=-2>New Set</mat-option>
+            <mat-option *ngFor="let set of data.sets; index as i" value={{i}}>{{set.setname}}</mat-option>
+            
+        </mat-select>
+    </mat-form-field>
+    <br>
+    <div *ngIf="SetControl.value==-2">
+        <mat-form-field>
+            <mat-label>set name</mat-label>
+            <input matInput [(ngModel)]="setname" required>
+          </mat-form-field>
+        <br>
+          <mat-form-field>
+            <mat-label>textbook</mat-label>
+            <input matInput [(ngModel)]="textbook">
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>level</mat-label>
+            <mat-select [(ngModel)]="level" required>
+              <mat-option value="Beginner">Beginner</mat-option>
+              <mat-option value="Intermediate">Intermediate</mat-option>
+              <mat-option value="Hard">Hard</mat-option>
+            </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>from language</mat-label>
+            <mat-select [(ngModel)]="fromLanguage" required>
+              <mat-option value="Japanese"> Japanese</mat-option>
+              <mat-option value="Chinese"> Chinese</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>to language</mat-label>
+            <mat-select [(ngModel)]="toLanguage" required>
+              <mat-option value="Japanese"> Japanese</mat-option>
+              <mat-option value="Chinese"> Chinese</mat-option>
+              </mat-select>
+          </mat-form-field>
+          <br>
+          <mat-form-field>
+            <mat-label>description</mat-label>
+            <textarea matInput [(ngModel)]="description"></textarea>
+          </mat-form-field>
+        <br>
+        <mat-form-field>
+            <mat-label>Page description</mat-label>
+            <input matInput [(ngModel)]='pageDescription'>
+        </mat-form-field>
+    </div>
+    <div *ngIf="SetControl.value>-2">
+    <mat-form-field *ngIf="SetControl.value>=0">
+        <mat-label>Select a page</mat-label>
+        <mat-select [(ngModel)]="pageId" required [formControl]="PageControl">
+            <mat-option value="newPage"> new page </mat-option>
+            <div *ngFor="let page of data.sets[SetControl.value].pages; index as i">
+                <mat-option value={{page._id}} *ngIf="page.description==''">Page {{+i + 1}}</mat-option>
+                <mat-option value={{page._id}} *ngIf="page.description!=''">Page {{+i + 1}}: {{page.description}}</mat-option>
+            </div>
+            
+        </mat-select>
+    </mat-form-field>
+    <mat-form-field *ngIf="PageControl.value=='newPage'">
+        <mat-label>Page description</mat-label>
+        <input matInput [(ngModel)]='pageDescription'>
+    </mat-form-field>
+</div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]='{
+      "word": word, 
+      "meaning": meaning, 
+      "comment": comment, 
+      "examples": [],
+      "practice": data.practice,
+      "pronounce": "",
+      "recording": "",
+      "setid": setId,
+      "pageid": pageId,
+      "pageDescription": pageDescription,
+      "setname": setname,
+      "description": description, 
+      "textbook": "Japn",
+      "level": level,
+      "fromLanguage": "Chinese",
+      "toLanguage": "Japanese",
+      "author": "sue/tann"
+    }' [disabled]="word==''" cdkFocusInitial>Ok</button>
+</div>
