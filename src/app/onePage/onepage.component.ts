@@ -32,6 +32,7 @@ import { baseURL } from '../shared/baseurl';
     totalPage: number;
     newNote: Note;
     newPage: Page;
+    practice: boolean;
   
     constructor(private setservice: SetService,
       @Inject('baseURL') private baseURL,
@@ -64,11 +65,13 @@ import { baseURL } from '../shared/baseurl';
     }
 
     openPostNoteDialog(): void {
+      this.practice = true;
         const dialogRef = this.dialog.open(NoteDialog, {
           width: '500px',
           data: {
             set: this.setName, 
             page: this.description,
+            practice: true
           }
         });
     
@@ -87,7 +90,6 @@ import { baseURL } from '../shared/baseurl';
           width: '500px',
           data: {
             set: this.setName,
-            descripPlaceHolder: 'page ' + this.totalPage.toString()
           }
         });
     

@@ -5,8 +5,9 @@ import {MatDialog} from '@angular/material/dialog';
 import {FormGroup} from '@angular/forms';
 import { Note } from '../shared/note';
 import { Page } from '../shared/page';
-import {NoteDialog} from '../add-note/add-note.component'
-import {PageDialog} from '../add-page/add-page.component'
+import {NoteDialog} from '../add-note/add-note.component';
+import {PageDialog} from '../add-page/add-page.component';
+import { SetDialog } from '../add-set/add-set.component';
 
 
 @Component({
@@ -29,6 +30,7 @@ import {PageDialog} from '../add-page/add-page.component'
     noteForm: FormGroup;
     newNote: Note;
     newPage: Page;
+    newSet: Set;
   
     constructor(private setservice: SetService,
       @Inject('baseURL') private baseURL, 
@@ -55,6 +57,7 @@ import {PageDialog} from '../add-page/add-page.component'
         data: {
           set: this.selectedSet.setname, 
           page: this.selectedPage.description,
+          practice: true
         }
       });
   
@@ -72,7 +75,6 @@ import {PageDialog} from '../add-page/add-page.component'
         width: '500px',
         data: {
           set: this.selectedSet.setname,
-          descripPlaceHolder: 'page ' + this.selectedSet.pages.length.toString()
         }
       });
   
@@ -88,6 +90,24 @@ import {PageDialog} from '../add-page/add-page.component'
       }
       });
     }
+
+    openPostSetDialog(): void {
+      const dialogSetRef = this.dialog.open(SetDialog, {
+        width: '500px'
+      });
+  
+      dialogSetRef.afterClosed().subscribe(result => {
+        this.newSet = result;
+        console.log(result);
+        if(result){
+        this.setservice.postNewSet(this.newSet).subscribe(()=>{
+          console.log('posted');
+          window.location.reload();
+        })
+      }
+      });
+    }
+
 
     deleteThisPage(setId: string, pageId: string){
       this.setservice.deletePage(setId, pageId).subscribe(()=>{location.reload();});
